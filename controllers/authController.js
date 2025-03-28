@@ -2,6 +2,7 @@ import { iMailer } from "../instances/iMailer.js";
 import { componentesDB } from "../instances/iPgHandler.js";
 import { CryptManager } from "../utils/encrypter.js";
 import { sessionComponent } from "../components/sessionComponent.js";
+import { getTemplate } from "../utils/template.js";
 
 export class authController {
     static async login(req, res) {
@@ -64,10 +65,11 @@ export class authController {
         await componentesDB.exeQuery({key: 'insertUserProfile', params: [id_usuario], client});
         await componentesDB.commitTransaction(client);
 
-        await iMailer.sendEmail({
+        await iMailer.sendTemplate({
+          from: 'idiar16@gmail.com',
           to: email,
           subject: 'Bienvenido a la plataforma',
-          text: `Hola ${user}, bienvenido a la plataforma`,
+          template: getTemplate({user}),
           attachments: [{
             filename: 'Bienvenido.jpg',
             path: './assets/img.jpg'
