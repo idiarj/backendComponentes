@@ -1,0 +1,18 @@
+### Login user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "user": "idiar16",
+    "pwd": "Foden2004"
+}
+
+### Register user
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "user": "iDIar16",
+    "email": "idiar16@gmail.com",
+    "pwd": "Foden2004"
+}

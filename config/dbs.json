@@ -1,0 +1,4 @@
+{
+    "deployed1": "postgresql://neondb_owner:npg_6N3WMDeXTQIr@ep-shiny-math-a8cuipia-pooler.eastus2.azure.neon.tech/neondb?sslmode=require",
+    "deployed2": "postgresql://testDB_owner:npg_6DAVUMeHBQ7q@ep-little-resonance-a5naf3ta-pooler.us-east-2.aws.neon.tech/testDB?sslmode=require"
+}

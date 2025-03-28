@@ -1,0 +1,35 @@
+CREATE SCHEMA IF NOT EXISTS "public";
+
+CREATE  TABLE "public".perfil ( 
+	id_perfil            serial  NOT NULL  ,
+	nom_perfil           varchar    ,
+	CONSTRAINT pk_perfil PRIMARY KEY ( id_perfil )
+ );
+
+CREATE  TABLE "public".permiso ( 
+	id_permiso           serial  NOT NULL  ,
+	nom_permiso          varchar  NOT NULL  ,
+	CONSTRAINT pk_permiso PRIMARY KEY ( id_permiso )
+ );
+
+CREATE  TABLE "public".permiso_perfil ( 
+	id_perfil_permiso    serial  NOT NULL  ,
+	id_perfil            serial    ,
+	id_permiso           serial    ,
+	CONSTRAINT pk_permiso_perfil PRIMARY KEY ( id_perfil_permiso )
+ );
+
+CREATE  TABLE "public".usuario ( 
+	id_usuario           serial  NOT NULL  ,
+	usuario              varchar  NOT NULL  ,
+	contraseña           varchar  NOT NULL  ,
+	correo               varchar    ,
+	id_perfil            serial    ,
+	CONSTRAINT pk_usuario PRIMARY KEY ( id_usuario )
+ );
+
+ALTER TABLE "public".permiso_perfil ADD CONSTRAINT fk_permiso_perfil_perfil FOREIGN KEY ( id_perfil ) REFERENCES "public".perfil( id_perfil );
+
+ALTER TABLE "public".permiso_perfil ADD CONSTRAINT fk_permiso_perfil_permiso FOREIGN KEY ( id_permiso ) REFERENCES "public".permiso( id_permiso );
+
+ALTER TABLE "public".usuario ADD CONSTRAINT fk_usuario_perfil FOREIGN KEY ( id_perfil ) REFERENCES "public".perfil( id_perfil );
