@@ -1,8 +1,11 @@
 {
-    "registerUser": "INSERT INTO usuario (usuario, correo, contraseña, id_perfil) VALUES ($1, $2, $3, 1)",
+    "registerUser": "INSERT INTO usuario (usuario, correo, contraseña) VALUES ($1, $2, $3) RETURNING id_usuario",
+    "updateUser": "UPDATE usuario SET usuario = $1, correo = $2, contraseña = $3 WHERE id_usuario = $4",
+    "deleteUser": "DELETE FROM usuario WHERE id_usuario = $1",
+    "deleteUserProfile": "DELETE FROM usuario_perfil WHERE id_usuario = $1",
     "verifyUser": "SELECT id_usuario AS id, usuario AS user, contraseña AS pwd FROM usuario WHERE LOWER(usuario) = LOWER($1)",
     "getUsers": "SELECT id_usuario AS id, usuario AS user, correo AS email FROM usuario",
     "getUserProfiles": "SELECT nom_perfil AS perfil FROM usuario u INNER JOIN usuario_perfil up ON u.id_usuario = up.id_usuario INNER JOIN perfil per ON up.id_perfil = per.id_perfil WHERE u.id_usuario = $1",
-    "inserUserProfile": "INSERT INTO usuario_perfil (id_usuario, id_perfil) VALUES ($1, 2)",
+    "insertUserProfile": "INSERT INTO usuario_perfil (id_usuario, id_perfil) VALUES ($1, 2)",
     "getPermissions": "SELECT nom_perfil AS perfil, nom_permiso AS permiso FROM perfil pf INNER JOIN permiso_perfil pp ON pf.id_perfil = pp.id_perfil INNER JOIN permiso pm ON pp.id_permiso = pm.id_permiso WHERE pf.id_perfil = $1"
 }

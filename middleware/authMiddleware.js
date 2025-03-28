@@ -1,4 +1,4 @@
-import { sessionComponent } from "../sessionComp/sessionComponent.js";
+import { sessionComponent } from "../components/sessionComponent.js";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,7 +12,7 @@ export const authMiddleware = (req, res, next)=>{
         res.status(401).json({errorMsg: 'Unauthorized 3'});
         return;
     }
-    const decoded = sessionComponent.verifyToken({token: cookies.access_token, key: process.env.ACCESS_TOKEN_SECRET});
+    const decoded = sessionComponent.verifyToken({token: cookies.refresh_token, key: process.env.REFRESH_TOKEN_SECRET});
     console.log(`Authentication Middleware`);
     req.user = {
         userId: decoded.userId,
