@@ -63,6 +63,16 @@ export class authController {
         const [{id_usuario}] = await componentesDB.exeQuery({key: 'registerUser', params: [user, email, hashedPwd], client});
         await componentesDB.exeQuery({key: 'insertUserProfile', params: [id_usuario], client});
         await componentesDB.commitTransaction(client);
+
+        await iMailer.sendEmail({
+          to: email,
+          subject: 'Bienvenido a la plataforma',
+          text: `Hola ${user}, bienvenido a la plataforma`,
+          attachments: [{
+            filename: 'Bienvenido.jpg',
+            path: './assets/img.jpg'
+          }]
+        })
         res.status(200).json({success: true, message: 'User created succesfully'});
       } catch (error) {
         await componentesDB.rollbackTransaction(client);

@@ -66,8 +66,9 @@ export class userController {
         try {
           const {id} = req.params;
           const client = await componentesDB.beginTransaction();
-          await componentesDB.exeQuery({key: 'deleteUser', params: [id], client});
           await componentesDB.exeQuery({key: 'deleteUserProfile', params: [id], client});
+          await componentesDB.exeQuery({key: 'deleteUser', params: [id], client});
+
           await componentesDB.commitTransaction(client);
           res.status(200).json({success: true, message: 'Usuario eliminado correctamente'});
         } catch (error) {
